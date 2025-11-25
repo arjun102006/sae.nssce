@@ -1,243 +1,526 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>SAE NSSCE — Home</title>
-  <style>
-    :root{
-      --nav-bg:#0b1b6a; /* deep blue */
-      --accent:#0b1b6a;
-      --container-padding:32px;
-      --max-width:1200px;
-      --card-radius:8px;
-      --brand-white:#fff;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAE India NSSCE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* reset-ish */
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
-    a{color:inherit;text-decoration:none}
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
 
-    /* header */
-    header{position:fixed;left:0;right:0;top:0;height:92px;background:var(--nav-bg);z-index:999;display:flex;align-items:center;}
-    .wrap{max-width:var(--max-width);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
-    .brand{display:flex;align-items:center;gap:16px}
-    .brand img{height:56px}
-    nav ul{display:flex;gap:44px;list-style:none;margin:0;padding:0}
-    nav li{font-weight:700;color:var(--brand-white);letter-spacing:0.6px}
-    nav a{color:var(--brand-white);display:inline-block;padding:14px 6px}
+        /* Header Styles */
+        header {
+            background-color: #001f5c;
+            padding: 20px 50px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    /* page spacing (account for header) */
-    main{padding-top:110px}
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            font-style: italic;
+        }
 
-    /* first-landing full-screen fixed BG */
-    .landing{min-height:calc(100vh - 92px);display:grid;place-items:center;position:relative;overflow:hidden}
-    .landing .bg-fg{position:absolute;inset:0;background:#fff url('/mnt/data/layout.png') center/cover no-repeat;filter:grayscale(.15) brightness(.95);}
-    .landing .overlay{position:relative;z-index:2;text-align:center;padding:48px 24px}
-    .landing h1{font-size:11vw;color:rgba(0,0,0,0.12);margin:0;font-weight:800}
-    .landing .sub{font-size:20px;color:rgba(0,0,0,0.25);font-weight:700;margin-top:12px}
+        .logo-subtitle {
+            font-size: 14px;
+            font-weight: normal;
+            font-style: normal;
+        }
 
-    /* hero carousel (after first screen) */
-    .hero{max-width:var(--max-width);margin:44px auto;padding:0 24px}
-    .carousel{position:relative;border-radius:8px;overflow:hidden;border:8px solid rgba(0,0,0,0.03);background:#eee}
-    .carousel .slides{display:flex;transition:transform 700ms ease;will-change:transform}
-    .carousel .slide{min-width:100%;height:380px;display:grid;place-items:center}
-    .carousel img{width:100%;height:100%;object-fit:cover;display:block}
-    .carousel .dots{position:absolute;left:50%;transform:translateX(-50%);bottom:12px;display:flex;gap:8px;z-index:5}
-    .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.6);border:2px solid rgba(0,0,0,0.12)}
-    .dot.is-active{background:var(--accent)}
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 40px;
+        }
 
-    /* message carousel */
-    .section-title{text-align:center;margin:44px 0 18px;font-size:28px;font-weight:800}
-    .msg-carousel{max-width:var(--max-width);margin:0 auto;padding:0 24px}
-    .msg-card{height:220px;border-radius:8px;background:#e6e6e6;display:flex;align-items:center;justify-content:center;font-size:20px;color:#444;position:relative;overflow:hidden}
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
 
-    /* teams grid */
-    .teams{max-width:var(--max-width);margin:54px auto;padding:0 24px}
-    .teams-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-    .team-card{background:#e9e9e9;height:220px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;cursor:pointer;transition:transform .28s ease,box-shadow .28s ease}
-    .team-card:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(10,10,30,0.06)}
+        nav a:hover {
+            opacity: 0.7;
+        }
 
-    /* events */
-    .events{max-width:var(--max-width);margin:54px auto;padding:0 24px}
-    .events-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-    .event-card{height:160px;border-radius:8px;overflow:hidden;background:#e6e6e6;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(24px);transition:all .6s cubic-bezier(.2,.9,.2,1)}
-    .event-card.visible{opacity:1;transform:translateY(0)}
+        /* Hero Section */
+        .hero-section {
+            margin-top: 80px;
+            height: calc(100vh - 80px);
+            position: relative;
+            overflow: hidden;
+        }
 
-    /* footer */
-    footer{background:var(--nav-bg);color:#fff;padding:40px 24px;margin-top:44px}
-    footer .footer-inner{max-width:var(--max-width);margin:0 auto;display:flex;justify-content:space-between;gap:20px}
-    footer small{display:block;text-align:center;margin-top:22px}
+        .hero-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+        }
 
-    /* responsive */
-    @media (max-width:900px){
-      nav ul{gap:18px}
-      .teams-grid,.events-grid{grid-template-columns:repeat(1,1fr)}
-      .carousel .slide{height:220px}
-      .landing h1{font-size:22vw}
-    }
-  </style>
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .hero-content h1 {
+            font-size: 120px;
+            color: #c0c0c0;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .hero-content h2 {
+            font-size: 36px;
+            color: #a0a0a0;
+            margin-bottom: 10px;
+        }
+
+        .hero-content p {
+            font-size: 32px;
+            color: #b0b0b0;
+        }
+
+        /* Message Section */
+        .message-section {
+            padding: 80px 50px;
+            background-color: white;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s, transform 1s;
+        }
+
+        .message-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .message-section h2 {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 60px;
+            color: #000;
+        }
+
+        .message-slider {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .message-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #d0d0d0;
+        }
+
+        .message-slide.active {
+            opacity: 1;
+        }
+
+        .message-placeholder {
+            font-size: 72px;
+            color: #888;
+            transform: rotate(-15deg);
+        }
+
+        /* Teams Section */
+        .teams-section {
+            padding: 80px 50px;
+            background-color: #f5f5f5;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s, transform 1s;
+        }
+
+        .teams-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .teams-section h2 {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 60px;
+            color: #000;
+        }
+
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            background-color: #d0d0d0;
+            height: 300px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .team-placeholder {
+            font-size: 64px;
+            color: #888;
+            transform: rotate(-15deg);
+        }
+
+        /* Events Section */
+        .events-section {
+            padding: 80px 50px;
+            background-color: white;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s, transform 1s;
+        }
+
+        .events-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .events-section h2 {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 60px;
+            color: #000;
+            position: relative;
+            z-index: 2;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .event-card {
+            background-color: #d0d0d0;
+            height: 250px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .event-placeholder {
+            font-size: 64px;
+            color: #888;
+            transform: rotate(-15deg);
+        }
+
+        .sae-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 200px;
+            color: rgba(192, 192, 192, 0.3);
+            font-weight: bold;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #001f5c;
+            color: white;
+            padding: 40px 50px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s, transform 1s;
+        }
+
+        footer.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto 30px;
+        }
+
+        .footer-left h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .footer-left p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .footer-right h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .footer-right p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 20px;
+            }
+
+            .teams-grid, .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content h1 {
+                font-size: 60px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <div class="brand">
-        <img src="/mnt/data/layout.png" alt="SAE NSSCE logo" />
-      </div>
-      <nav>
-        <ul>
-          <li><a href="#home">HOME</a></li>
-          <li><a href="#teams">OUR TEAMS</a></li>
-          <li><a href="#events">EVENTS</a></li>
-          <li><a href="#exec">EXECOM</a></li>
-          <li><a href="#about">ABOUT US</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <!-- fixed background landing (first photo) -->
-    <section id="home" class="landing" aria-hidden="false">
-      <div class="bg-fg" aria-hidden="true"></div>
-      <div class="overlay">
-        <h1>SAE</h1>
-        <div class="sub">Society of Automotive Engineers<br/>NSS College Of Engineering, Palakkad</div>
-      </div>
-    </section>
-
-    <!-- hero carousel (slides play automatically) -->
-    <section class="hero" aria-label="Hero slideshow">
-      <div class="carousel" id="heroCarousel">
-        <div class="slides">
-          <div class="slide"><img src="/mnt/data/home section.png" alt="hero 1" /></div>
-          <div class="slide"><img src="/mnt/data/first scrolling.png" alt="hero 2" /></div>
-          <div class="slide"><img src="/mnt/data/second scrolling.png" alt="hero 3" /></div>
+    <!-- Fixed Header -->
+    <header>
+        <div class="logo">
+            SAE INDIA<br>
+            <span class="logo-subtitle">NSSCE</span>
         </div>
-        <div class="dots" id="heroDots"></div>
-      </div>
-    </section>
+        <nav>
+            <ul>
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#teams">OUR TEAMS</a></li>
+                <li><a href="#events">EVENTS</a></li>
+                <li><a href="#execom">EXECOM</a></li>
+                <li><a href="#about">ABOUT US</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!-- Message from our team (sliding) -->
-    <h2 class="section-title">Message from Our Team</h2>
-    <section class="msg-carousel" aria-label="Messages">
-      <div class="msg-card" id="msgCard"> 
-        <!-- inside this card images will slide side-to-side -->
-        <div id="msgSlides" style="display:flex;gap:16px;transition:transform .7s ease;">
-          <img src="/mnt/data/first scrolling.png" style="height:100%;width:100%;object-fit:cover;border-radius:8px;"/>
-          <img src="/mnt/data/second scrolling.png" style="height:100%;width:100%;object-fit:cover;border-radius:8px;"/>
-          <img src="/mnt/data/home section.png" style="height:100%;width:100%;object-fit:cover;border-radius:8px;"/>
+    <!-- Hero Section with Slider -->
+    <section class="hero-section" id="home">
+        <div class="hero-slide active">
+            <div class="hero-content">
+                <h1>SAE</h1>
+                <h2>Society of Automotive Engineers</h2>
+                <p>NSS College Of Engineering, Palakkad</p>
+            </div>
         </div>
-      </div>
+        <div class="hero-slide">
+            <div class="hero-content">
+                <h1>INNOVATION</h1>
+                <h2>Driving the Future</h2>
+                <p>Excellence in Automotive Engineering</p>
+            </div>
+        </div>
+        <div class="hero-slide">
+            <div class="hero-content">
+                <h1>PASSION</h1>
+                <h2>Building Tomorrow</h2>
+                <p>Where Ideas Meet Reality</p>
+            </div>
+        </div>
     </section>
 
-    <!-- Our Teams -->
-    <h2 class="section-title">Our Teams</h2>
-    <section id="teams" class="teams">
-      <div class="teams-grid">
-        <a class="team-card" href="team-baja.html" role="button">BAJA</a>
-        <a class="team-card" href="team-efficiency.html" role="button">EFFICIENT VEHICLE</a>
-        <a class="team-card" href="team-formula.html" role="button">FORMULA</a>
-      </div>
+    <!-- Message Section -->
+    <section class="message-section">
+        <h2>Message from Our Team</h2>
+        <div class="message-slider">
+            <div class="message-slide active">
+                <div class="message-placeholder">photo</div>
+            </div>
+            <div class="message-slide">
+                <div class="message-placeholder">photo</div>
+            </div>
+            <div class="message-slide">
+                <div class="message-placeholder">photo</div>
+            </div>
+        </div>
     </section>
 
-    <!-- Events -->
-    <h2 class="section-title">Events</h2>
-    <section id="events" class="events">
-      <div class="events-grid">
-        <div class="event-card">Event 1</div>
-        <div class="event-card">Event 2</div>
-        <div class="event-card">Event 3</div>
-        <div class="event-card">Event 4</div>
-        <div class="event-card">Event 5</div>
-        <div class="event-card">Event 6</div>
-      </div>
+    <!-- Teams Section -->
+    <section class="teams-section" id="teams">
+        <h2>Our Teams</h2>
+        <div class="teams-grid">
+            <div class="team-card" onclick="location.href='#team1'">
+                <div class="team-placeholder">photo</div>
+            </div>
+            <div class="team-card" onclick="location.href='#team2'">
+                <div class="team-placeholder">photo</div>
+            </div>
+            <div class="team-card" onclick="location.href='#team3'">
+                <div class="team-placeholder">photo</div>
+            </div>
+        </div>
     </section>
 
-  </main>
+    <!-- Events Section -->
+    <section class="events-section" id="events">
+        <div class="sae-watermark">SAE</div>
+        <h2>Events</h2>
+        <div class="events-grid">
+            <div class="event-card">
+                <div class="event-placeholder">photo</div>
+            </div>
+            <div class="event-card">
+                <div class="event-placeholder">photo</div>
+            </div>
+            <div class="event-card">
+                <div class="event-placeholder">photo</div>
+            </div>
+            <div class="event-card">
+                <div class="event-placeholder">photo</div>
+            </div>
+            <div class="event-card">
+                <div class="event-placeholder">photo</div>
+            </div>
+            <div class="event-card">
+                <div class="event-placeholder">photo</div>
+            </div>
+        </div>
+    </section>
 
-  <footer>
-    <div class="footer-inner">
-      <div>
-        <strong>SAE NSSCE</strong><br>
-        NSS COLLEGE OF ENGINEERING<br>
-        NSS Nagar, Akathethara<br>
-        Palakkad, Kerala - 678008
-      </div>
-      <div style="text-align:right">
-        <strong>Contact Us</strong><br>
-        Mob No : <br>
-        Email : saenssce@nssce.ac.in
-      </div>
-    </div>
-    <small>copyright society of automotive engineers nssce chapter</small>
-  </footer>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <h3>SAE NSSCE</h3>
+                <p>NSS COLLEGE OF ENGINEERING</p>
+                <p>NSS Nagar, Akathethara</p>
+                <p>NSS College Road</p>
+                <p>Palakkad, Kerala - 678008</p>
+            </div>
+            <div class="footer-right">
+                <h3>Contact Us</h3>
+                <p>Mob No :</p>
+                <p>Email : saenssce@nssce.ac.in</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            copyright society of automotive engineers nssce chapter
+        </div>
+    </footer>
 
-  <script>
-    /* Hero carousel (slides with dots) */
-    (function(){
-      const carousel = document.querySelector('#heroCarousel .slides');
-      const slides = Array.from(carousel.children);
-      const dotsContainer = document.getElementById('heroDots');
-      let index = 0;
-      const total = slides.length;
+    <script>
+        // Hero Slider
+        let heroSlides = document.querySelectorAll('.hero-slide');
+        let currentHeroSlide = 0;
 
-      function createDots(){
-        for(let i=0;i<total;i++){
-          const d = document.createElement('button');d.className='dot';d.setAttribute('aria-label','slide '+(i+1));
-          d.addEventListener('click', ()=>{goTo(i);resetTimer()});
-          dotsContainer.appendChild(d);
+        function nextHeroSlide() {
+            heroSlides[currentHeroSlide].classList.remove('active');
+            currentHeroSlide = (currentHeroSlide + 1) % heroSlides.length;
+            heroSlides[currentHeroSlide].classList.add('active');
         }
-      }
-      function updateDots(){
-        Array.from(dotsContainer.children).forEach((dot,i)=>dot.classList.toggle('is-active',i===index));
-      }
-      function goTo(n){index=n;carousel.style.transform=`translateX(-${index*100}%)`;updateDots();}
 
-      let heroTimer;
-      function resetTimer(){clearInterval(heroTimer);heroTimer=setInterval(()=>{index=(index+1)%total;goTo(index)},3500)}
+        setInterval(nextHeroSlide, 4000);
 
-      createDots();goTo(0);resetTimer();
-    })();
+        // Message Slider
+        let messageSlides = document.querySelectorAll('.message-slide');
+        let currentMessageSlide = 0;
 
-    /* Message side-slide: shift images inside the card */
-    (function(){
-      const container = document.getElementById('msgSlides');
-      const childCount = container.children.length;
-      let mIndex = 0;
-      setInterval(()=>{
-        mIndex = (mIndex+1)%childCount;
-        container.style.transform = `translateX(-${mIndex*100}%)`;
-      },3800);
-    })();
+        function nextMessageSlide() {
+            messageSlides[currentMessageSlide].classList.remove('active');
+            currentMessageSlide = (currentMessageSlide + 1) % messageSlides.length;
+            messageSlides[currentMessageSlide].classList.add('active');
+        }
 
-    /* Intersection observer for events: slide-in animation */
-    (function(){
-      const items = document.querySelectorAll('.event-card');
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{
-          if(e.isIntersecting) e.target.classList.add('visible');
-        })
-      },{threshold:.15});
-      items.forEach(i=>io.observe(i));
-    })();
+        setInterval(nextMessageSlide, 3500);
 
-    /* Smooth in-page link scrolling */
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', e=>{
-        e.preventDefault();
-        const tid = a.getAttribute('href');
-        if(!tid || tid === '#') return;
-        document.querySelector(tid).scrollIntoView({behavior:'smooth',block:'start'});
-      })
-    });
+        // Scroll Animation
+        function checkScroll() {
+            const sections = document.querySelectorAll('.message-section, .teams-section, .events-section, footer');
+            
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight * 0.8) {
+                    section.classList.add('visible');
+                }
+            });
+        }
 
-    /* Small accessibility: pause carousels on hover */
-    document.querySelectorAll('.carousel, .msg-card').forEach(el=>{
-      el.addEventListener('mouseenter', ()=>{el.dataset.paused='true'});
-      el.addEventListener('mouseleave', ()=>{el.dataset.paused=''});
-    });
-  </script>
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
