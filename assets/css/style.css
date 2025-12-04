@@ -28,12 +28,10 @@ header {
     margin: 0 auto;
 }
 
-.logo h1 {
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
-    font-style: italic;
-    letter-spacing: 2px;
+.site-logo {
+    width: 180px;
+    height: auto;
+    display: block;
 }
 
 .logo p {
@@ -409,3 +407,4 @@ footer {
         grid-template-columns: repeat(3, 1fr);
     }
 }
+
