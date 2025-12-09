@@ -13,7 +13,7 @@ body {
 /* Header & Navigation */
 header {
     background-color: #001f5c;
-    padding: 0;
+    padding: 15px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -407,4 +407,5 @@ footer {
         grid-template-columns: repeat(3, 1fr);
     }
 }
+
 
