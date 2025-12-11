@@ -12,254 +12,621 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
         }
 
-        /* Navigation Bar */
-        nav {
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
             background-color: #001f5c;
-            padding: 20px 50px;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            padding: 20px;
         }
 
         .logo {
-            display: flex;
-            flex-direction: column;
-            color: white;
+            font-size: 28px;
             font-weight: bold;
-        }
-
-        .logo-main {
-            font-size: 32px;
             font-style: italic;
-            letter-spacing: 2px;
         }
 
-        .logo-sub {
+        .logo-subtitle {
             font-size: 14px;
-            letter-spacing: 3px;
-            margin-top: -5px;
+            font-weight: normal;
         }
 
-        .nav-links {
+        nav {
             display: flex;
-            gap: 40px;
-            list-style: none;
+            gap: 30px;
         }
 
-        .nav-links a {
+        nav a {
             color: white;
             text-decoration: none;
-            font-size: 16px;
-            font-weight: 500;
             transition: color 0.3s;
-            letter-spacing: 1px;
+            padding-bottom: 5px;
         }
 
-        .nav-links a:hover {
-            color: #4a90e2;
+        nav a:hover,
+        nav a.active {
+            color: #ccc;
+            border-bottom: 2px solid white;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .mobile-nav {
+            display: none;
+            padding: 20px;
+            border-top: 1px solid #003380;
+        }
+
+        .mobile-nav a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px 0;
+            transition: color 0.3s;
+        }
+
+        .mobile-nav a:hover {
+            color: #ccc;
         }
 
         /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(135deg, #e8e8e8 0%, #d4d4d4 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding-top: 80px;
+        .hero-section {
             position: relative;
+            height: 60vh;
+            background-color: #d3d3d3;
             overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
+        .hero-slide {
             position: absolute;
-            width: 150%;
-            height: 150%;
-            background: radial-gradient(circle, rgba(74,144,226,0.1) 0%, transparent 70%);
-            animation: pulse 8s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.3; }
-        }
-
-        .hero-content {
-            text-align: center;
-            z-index: 1;
-            animation: fadeInUp 1.2s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .sae-title {
-            font-size: 180px;
-            font-weight: bold;
-            color: #b8b8b8;
-            letter-spacing: 10px;
-            margin-bottom: 20px;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.1);
-        }
-
-        .subtitle {
-            font-size: 32px;
-            color: #888;
-            margin-bottom: 10px;
-            font-weight: 300;
-            letter-spacing: 2px;
-        }
-
-        .college-name {
-            font-size: 32px;
-            color: #888;
-            font-weight: 300;
-            letter-spacing: 2px;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            cursor: pointer;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-10px); }
-            60% { transform: translateX(-50%) translateY(-5px); }
-        }
-
-        .scroll-indicator svg {
-            width: 30px;
-            height: 30px;
-            fill: #001f5c;
-        }
-
-        /* Next Page Link */
-        .next-page-link {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #001f5c;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            box-shadow: 0 5px 15px rgba(0,31,92,0.3);
-            transition: all 0.3s ease;
-            z-index: 999;
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
         }
 
-        .next-page-link:hover {
-            background-color: #4a90e2;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(74,144,226,0.4);
+        .hero-slide.active {
+            opacity: 1;
         }
 
-        .next-page-link svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
+        .hero-placeholder {
+            font-size: 80px;
+            color: #999;
+            transform: rotate(-12deg);
+            text-align: center;
         }
 
-        /* Responsive Design */
+        .hero-placeholder div:first-child {
+            font-weight: bold;
+        }
+
+        .hero-placeholder div:last-child {
+            font-size: 60px;
+            margin-top: 20px;
+        }
+
+        /* Section Common Styles */
+        section {
+            padding: 80px 20px;
+        }
+
+        section h2 {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: bold;
+        }
+
+        /* Message Section */
+        .message-section {
+            background-color: white;
+        }
+
+        .message-slideshow {
+            position: relative;
+            height: 50vh;
+            background-color: #d3d3d3;
+            overflow: hidden;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .message-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .message-slide.active {
+            opacity: 1;
+        }
+
+        .message-placeholder {
+            font-size: 70px;
+            color: #999;
+            transform: rotate(-6deg);
+        }
+
+        /* Teams Section */
+        .teams-section {
+            background-color: #f9f9f9;
+        }
+
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            position: relative;
+            height: 300px;
+            background-color: #d3d3d3;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        .team-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .team-slide.active {
+            opacity: 1;
+        }
+
+        .team-placeholder {
+            font-size: 50px;
+            color: #999;
+            transform: rotate(-6deg);
+        }
+
+        .team-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 31, 92, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .team-card:hover .team-overlay {
+            opacity: 1;
+        }
+
+        .team-name {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Events Section */
+        .events-section {
+            background-color: white;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .event-card {
+            position: relative;
+            height: 300px;
+            background-color: #d3d3d3;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        .event-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .event-slide.active {
+            opacity: 1;
+        }
+
+        .event-placeholder {
+            font-size: 50px;
+            color: #999;
+            transform: rotate(-6deg);
+        }
+
+        .event-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 31, 92, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .event-card:hover .event-overlay {
+            opacity: 1;
+        }
+
+        .event-name {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #001f5c;
+            color: white;
+            padding: 60px 20px 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section p {
+            margin-bottom: 8px;
+        }
+
+        .footer-right {
+            text-align: left;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #003380;
+            font-size: 14px;
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
             nav {
-                padding: 15px 20px;
+                display: none;
             }
 
-            .nav-links {
-                gap: 20px;
-                font-size: 14px;
+            .menu-toggle {
+                display: block;
             }
 
-            .logo-main {
-                font-size: 24px;
+            .mobile-nav.active {
+                display: block;
             }
 
-            .sae-title {
-                font-size: 100px;
+            .hero-placeholder {
+                font-size: 50px;
             }
 
-            .subtitle, .college-name {
-                font-size: 20px;
+            .hero-placeholder div:last-child {
+                font-size: 40px;
             }
 
-            .next-page-link {
-                bottom: 20px;
-                right: 20px;
-                padding: 12px 24px;
+            .message-placeholder {
+                font-size: 50px;
+            }
+
+            section h2 {
+                font-size: 28px;
+            }
+
+            .teams-grid,
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-right {
+                text-align: left;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .footer-right {
+                text-align: right;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">
-            <div class="logo-main">SAE INDIA</div>
-            <div class="logo-sub">NSSCE</div>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                SAE INDIA
+                <div class="logo-subtitle">NSSCE</div>
+            </div>
+            <nav>
+                <a href="#home" class="active">HOME</a>
+                <a href="#teams">OUR TEAMS</a>
+                <a href="#events">EVENTS</a>
+                <a href="#execom">EXECOM</a>
+                <a href="#about">ABOUT US</a>
+            </nav>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
         </div>
-        <ul class="nav-links">
-            <li><a href="#home">HOME</a></li>
-            <li><a href="#teams">OUR TEAMS</a></li>
-            <li><a href="#events">EVENTS</a></li>
-            <li><a href="#execom">EXECOM</a></li>
-            <li><a href="#about">ABOUT US</a></li>
-        </ul>
-    </nav>
+        <div class="mobile-nav" id="mobileNav">
+            <a href="#home">HOME</a>
+            <a href="#teams">OUR TEAMS</a>
+            <a href="#events">EVENTS</a>
+            <a href="#execom">EXECOM</a>
+            <a href="#about">ABOUT US</a>
+        </div>
+    </header>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1 class="sae-title">SAE</h1>
-            <p class="subtitle">Society of Automotive Engineers</p>
-            <p class="college-name">NSS College Of Engineering, Palakkad</p>
+    <section id="home" class="hero-section">
+        <div class="hero-slide active">
+            <div class="hero-placeholder">
+                <div>hero section</div>
+                <div>photo 1</div>
+            </div>
         </div>
-        
-        <div class="scroll-indicator">
-            <svg viewBox="0 0 24 24">
-                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-            </svg>
+        <div class="hero-slide">
+            <div class="hero-placeholder">
+                <div>hero section</div>
+                <div>photo 2</div>
+            </div>
+        </div>
+        <div class="hero-slide">
+            <div class="hero-placeholder">
+                <div>hero section</div>
+                <div>photo 3</div>
+            </div>
         </div>
     </section>
 
-    <!-- Next Page Button -->
-    <a href="#next-section" class="next-page-link" onclick="goToNextPage(event)">
-        Explore More
-        <svg viewBox="0 0 24 24">
-            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
-        </svg>
-    </a>
+    <!-- Message Section -->
+    <section class="message-section">
+        <h2>Message from Our Team</h2>
+        <div class="message-slideshow">
+            <div class="message-slide active">
+                <div class="message-placeholder">photo 1</div>
+            </div>
+            <div class="message-slide">
+                <div class="message-placeholder">photo 2</div>
+            </div>
+            <div class="message-slide">
+                <div class="message-placeholder">photo 3</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teams Section -->
+    <section id="teams" class="teams-section">
+        <h2>Our Teams</h2>
+        <div class="teams-grid">
+            <div class="team-card" data-team="0">
+                <div class="team-slide active">
+                    <div class="team-placeholder">photo</div>
+                </div>
+                <div class="team-slide">
+                    <div class="team-placeholder">photo</div>
+                </div>
+                <div class="team-slide">
+                    <div class="team-placeholder">photo</div>
+                </div>
+                <div class="team-overlay">
+                    <div class="team-name">Baja SAE Team</div>
+                </div>
+            </div>
+            <div class="team-card" data-team="1">
+                <div class="team-slide active">
+                    <div class="team-placeholder">photo</div>
+                </div>
+                <div class="team-slide">
+                    <div class="team-placeholder">photo</div>
+                </div>
+                <div class="team-slide">
+                    <div class="team-placeholder">photo</div>
+                </div>
+                <div class="team-overlay">
+                    <div class="team-name">Formula SAE Team</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="events-section">
+        <h2>Events</h2>
+        <div class="events-grid">
+            <div class="event-card" data-event="0">
+                <div class="event-slide active">
+                    <div class="event-placeholder">photo</div>
+                </div>
+                <div class="event-slide">
+                    <div class="event-placeholder">photo</div>
+                </div>
+                <div class="event-slide">
+                    <div class="event-placeholder">photo</div>
+                </div>
+                <div class="event-overlay">
+                    <div class="event-name">Technical Workshop</div>
+                </div>
+            </div>
+            <div class="event-card" data-event="1">
+                <div class="event-slide active">
+                    <div class="event-placeholder">photo</div>
+                </div>
+                <div class="event-slide">
+                    <div class="event-placeholder">photo</div>
+                </div>
+                <div class="event-slide">
+                    <div class="event-placeholder">photo</div>
+                </div>
+                <div class="event-overlay">
+                    <div class="event-name">Guest Lecture Series</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>SAE NSSCE</h3>
+                <p>NSS COLLEGE OF ENGINEERING</p>
+                <p>NSS Nagar, Akathethara</p>
+                <p>NSS College Road</p>
+                <p>Palakkad, Kerala – 678008</p>
+            </div>
+            <div class="footer-section footer-right">
+                <h3>Contact Us</h3>
+                <p>Mob No :</p>
+                <p>Email : saenssce@nssce.ac.in</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>copyright society of automotive engineers nssce chapter</p>
+        </div>
+    </footer>
 
     <script>
-        // Smooth scroll for navigation
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.toggle('active');
+        }
+
+        // Hero Section Slideshow
+        let heroIndex = 0;
+        const heroSlides = document.querySelectorAll('.hero-section .hero-slide');
+        
+        function showHeroSlide() {
+            heroSlides.forEach(slide => slide.classList.remove('active'));
+            heroIndex = (heroIndex + 1) % heroSlides.length;
+            heroSlides[heroIndex].classList.add('active');
+        }
+        
+        setInterval(showHeroSlide, 3000);
+
+        // Message Section Slideshow
+        let messageIndex = 0;
+        const messageSlides = document.querySelectorAll('.message-slideshow .message-slide');
+        
+        function showMessageSlide() {
+            messageSlides.forEach(slide => slide.classList.remove('active'));
+            messageIndex = (messageIndex + 1) % messageSlides.length;
+            messageSlides[messageIndex].classList.add('active');
+        }
+        
+        setInterval(showMessageSlide, 3000);
+
+        // Team Cards Slideshow
+        const teamCards = document.querySelectorAll('.team-card');
+        const teamIndices = Array(teamCards.length).fill(0);
+
+        function showTeamSlides() {
+            teamCards.forEach((card, cardIndex) => {
+                const slides = card.querySelectorAll('.team-slide');
+                slides.forEach(slide => slide.classList.remove('active'));
+                teamIndices[cardIndex] = (teamIndices[cardIndex] + 1) % slides.length;
+                slides[teamIndices[cardIndex]].classList.add('active');
+            });
+        }
+
+        setInterval(showTeamSlides, 3000);
+
+        // Event Cards Slideshow
+        const eventCards = document.querySelectorAll('.event-card');
+        const eventIndices = Array(eventCards.length).fill(0);
+
+        function showEventSlides() {
+            eventCards.forEach((card, cardIndex) => {
+                const slides = card.querySelectorAll('.event-slide');
+                slides.forEach(slide => slide.classList.remove('active'));
+                eventIndices[cardIndex] = (eventIndices[cardIndex] + 1) % slides.length;
+                slides[eventIndices[cardIndex]].classList.add('active');
+            });
+        }
+
+        setInterval(showEventSlides, 3000);
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileNav').classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -269,44 +636,6 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
-                }
-            });
-        });
-
-        // Next page navigation
-        function goToNextPage(e) {
-            e.preventDefault();
-            // You can modify this URL to point to your actual next page
-            alert('This will navigate to the next section. Replace this with your actual page URL!');
-            // window.location.href = 'your-next-page.html';
-        }
-
-        // Parallax effect on scroll
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero-content');
-            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-            hero.style.opacity = 1 - (scrolled / 500);
-        });
-
-        // Add active state to navigation
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav-links a');
-
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= (sectionTop - 100)) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').slice(1) === current) {
-                    link.classList.add('active');
                 }
             });
         });
